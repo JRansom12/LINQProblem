@@ -26,6 +26,8 @@ namespace LINQProblems
                 };
             problems.CalculateGradeAverageOfAverageMinusLowest(classGrades);
 
+            string input = "Terrill";
+            problems.AlphOrderString(input);
             Console.ReadLine();
         }
     }
