@@ -40,46 +40,25 @@ namespace LINQProblems
             double aveAve = totalGrades / classGrades.Count;
             return aveAve;
         }
-        //Write a function that takes in a string of letters(i.e. “Terrill”) and returns an alphabetically ordered string corresponding to the letter frequency(i.e. "E1I1L2R2T1")
-        public string AlphOrderString(string input)
+
+        public void AlphOrderString(string feederString)
         {
-            string alphOrder = String.Concat(input.ToUpper().OrderBy(c => c));
-            string newOrder = null;
-
-
-            for (int i = 0; i < alphOrder.Length; i++)
+            StringBuilder holder = new StringBuilder();
+            var newWord = feederString.ToUpper();
+            var frequencyString = from f in newWord
+                                  group f by f into letterfrequency
+                                  orderby letterfrequency.Key
+                                  select new
+                                  {
+                                      Letter = letterfrequency.Key,
+                                      Frequency = letterfrequency.Count()
+                                  };
+            foreach (var x in frequencyString)
             {
-                int count = 0;
-                if (i == 0)
-                {
-                    count++;
-                    newOrder += alphOrder[i] + count.ToString();
-
-                }
-                else
-                {
-                    if (alphOrder[i] == alphOrder[i - 1])
-                    {
-                        count++;
-                        newOrder += alphOrder[i] + count.ToString();
-                    }
-                    else
-                    {
-                        count++;
-                        newOrder += alphOrder[i] + count.ToString();
-                    }
-                }
+                holder.Append($"{x.Letter }{x.Frequency }");
             }
-
-
-            Console.WriteLine(newOrder);
-            return newOrder;
-         
-
-
-
-
-
+            Console.WriteLine(holder);
+            Console.ReadLine();
         }
     }
 }
